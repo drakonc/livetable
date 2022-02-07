@@ -10,7 +10,7 @@ class LiveUserTable extends Component
 {
     use WithPagination;
 
-    public $search = '';
+    public $buscar = '';
     public $perPage = 15;
     public $camp = null;
     public $order = null;
@@ -18,8 +18,8 @@ class LiveUserTable extends Component
 
     public function render()
     {
-        $users = User::where('name','like', "%{$this->search}%")
-                ->orWhere('email','like', "%{$this->search}%");
+        $users = User::where('name','like', "%{$this->buscar}%")
+                ->orWhere('email','like', "%{$this->buscar}%");
 
         if($this->camp && $this->order){
             $users = $users->orderBy($this->camp,$this->order);
@@ -29,7 +29,22 @@ class LiveUserTable extends Component
         return view('livewire.live-user-table')->with('users',$users);
     }
 
+    public function updatingBuscar(){
+        $this->resetPage();
+    }
+
+    public function clear(){
+        $this->buscar = '';
+        $this->camp = null;
+        $this->order = null;
+        $this->icon = 'circle';
+        $this->perPage = 15;
+    }
+
     public function sortable($camp){
+        if($camp !== $this->camp){
+            $this->order = null;
+        }
         switch($this->order){
             case null:
                 $this->order = 'asc';

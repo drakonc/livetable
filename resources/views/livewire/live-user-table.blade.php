@@ -10,7 +10,8 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
               </select>
-              <input type="text" class="form-input w-full ml-6 rounded" wire:model='search' placeholder="Ingrese el termino de Busqueda..."/>
+              <input type="text" class="form-input w-full ml-6 rounded" wire:model='buscar' placeholder="Ingrese el termino de Busqueda..."/>
+              <button wire:click="clear" class="ml-6"><span class="fas fa-eraser"></span></button>
             </div>
           </div>
           <table class="min-w-full divide-y divide-gray-200">
@@ -19,19 +20,19 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Id
                   <button wire:click="sortable('id')">
-                    <span class="fas fa-{{$icon}}"></span>
+                    <span class="fas fa-{{ $camp == 'id' ? $icon:'circle' }}"></span>
                   </button>
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Name
                   <button wire:click="sortable('name')">
-                    <span class="fas fa-{{$icon}}"></span>
+                    <span class="fas fa-{{ $camp == 'name' ? $icon:'circle' }}"></span>
                   </button>
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Email
                   <button wire:click="sortable('email')">
-                    <span class="fas fa-{{$icon}}"></span>
+                    <span class="fas fa-{{ $camp == 'email' ? $icon:'circle' }}"></span>
                   </button>
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
