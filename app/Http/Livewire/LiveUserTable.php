@@ -10,8 +10,14 @@ class LiveUserTable extends Component
 {
     use WithPagination;
 
+    public $search = '';
+    public $perPage = 15;
+
     public function render()
     {
-        return view('livewire.live-user-table', ['users' => User::paginate(5)]);
+        $users = User::where('name','like', "%{$this->search}%")
+                ->orWhere('email','like', "%{$this->search}%")
+                ->paginate($this->perPage);
+        return view('livewire.live-user-table')->with('users',$users);
     }
 }

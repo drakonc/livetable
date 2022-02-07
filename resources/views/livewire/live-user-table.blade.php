@@ -2,6 +2,17 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div class="bg-white px-4 py-3 items-center justify-between border-t border-gray-200 sm:px-6">
+            <div class="flex text-gray-500">
+              <select class="rounded" wire:model="perPage">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+              <input type="text" class="form-input w-full ml-6 rounded" wire:model='search' placeholder="Ingrese el termino de Busqueda..."/>
+            </div>
+          </div>
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
