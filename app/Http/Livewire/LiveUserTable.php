@@ -16,6 +16,13 @@ class LiveUserTable extends Component
     public $order = null;
     public $icon = 'circle';
 
+    protected $queryString = [
+        'buscar' => ['except' => ''],
+        'camp' => ['except' => null],
+        'order' => ['except' => null]
+
+    ];
+
     public function render()
     {
         $users = User::where('name','like', "%{$this->buscar}%")
@@ -23,6 +30,9 @@ class LiveUserTable extends Component
 
         if($this->camp && $this->order){
             $users = $users->orderBy($this->camp,$this->order);
+        }else{
+            $this->camp = null;
+            $this->order = null;
         }
 
         $users = $users->paginate($this->perPage);
@@ -31,6 +41,10 @@ class LiveUserTable extends Component
 
     public function updatingBuscar(){
         $this->resetPage();
+    }
+
+    public function mount(){
+        $this->icon = $this->iconDirection($this->order);
     }
 
     public function clear(){
@@ -48,18 +62,23 @@ class LiveUserTable extends Component
         switch($this->order){
             case null:
                 $this->order = 'asc';
-                $this->icon = 'arrow-circle-up';
                 break;
             case 'asc':
                 $this->order = 'desc';
-                $this->icon = 'arrow-circle-down';
                 break;
             case 'desc':
                 $this->order = null;
-                $this->icon = 'circle';
                 break;
         }
+        $this->icon = $this->iconDirection($this->order);
         $this->camp = $camp;
+    }
+
+    public function iconDirection($sort): string{
+        if(!$sort)
+            return 'circle';
+
+        return $sort === 'asc' ? 'arrow-circle-up':'arrow-circle-down';
     }
 
 }
