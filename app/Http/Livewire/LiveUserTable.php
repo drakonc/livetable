@@ -12,6 +12,7 @@ class LiveUserTable extends Component
 
     public $buscar = '';
     public $perPage = 15;
+    public $user_role = "";
     public $camp = null;
     public $order = null;
     public $icon = 'circle';
@@ -25,8 +26,7 @@ class LiveUserTable extends Component
 
     public function render()
     {
-        $users = User::where('name','like', "%{$this->buscar}%")
-                ->orWhere('email','like', "%{$this->buscar}%");
+        $users = User::termino($this->buscar)->role($this->user_role);
 
         if($this->camp && $this->order){
             if($this->camp == 'lastname'){
@@ -57,6 +57,7 @@ class LiveUserTable extends Component
         $this->order = null;
         $this->icon = 'circle';
         $this->perPage = 15;
+        $this->user_role = "";
     }
 
     public function sortable($camp){

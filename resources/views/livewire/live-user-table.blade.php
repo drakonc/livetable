@@ -10,7 +10,13 @@
                 <option value="15">15</option>
                 <option value="20">20</option>
               </select>
-              <input type="text" class="form-input w-full ml-6 rounded" wire:model='buscar' placeholder="Ingrese el termino de Busqueda..."/>
+              <input type="text" class="form-input w-full ml-6 rounded mr-5" wire:model='buscar' placeholder="Ingrese el termino de Busqueda..."/>
+              <select class="rounded" wire:model="user_role">
+                <option value="">Seleccione...</option>
+                <option value="admin">Administrador</option>
+                <option value="seller">Vendedor</option>
+                <option value="client">Cliente</option>
+              </select>
               <button wire:click="clear" class="ml-6"><span class="fas fa-eraser"></span></button>
             </div>
           </div>
@@ -61,7 +67,7 @@
                     <div class="text-sm text-gray-900">{{$user->email}}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Admin</span>
+                    <div class="text-sm text-gray-900">{{$user->rol}}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>

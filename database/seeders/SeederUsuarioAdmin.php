@@ -21,6 +21,7 @@ class SeederUsuarioAdmin extends Seeder
             'email' => 'jcastro@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$16CbMKiccwMT6M3v/GBdfecm.KpRsX2.6lJhDyZuGsf7aq.bJIq9.', // Passw0rd!!
+            'role' => 'admin',
             'remember_token' => Str::random(10),
         ]);
 
