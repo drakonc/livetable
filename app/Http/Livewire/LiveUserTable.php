@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\User;
+use App\Models\{User, Apellido};
 use Livewire\{Component, WithPagination};
 
 
@@ -29,7 +29,11 @@ class LiveUserTable extends Component
                 ->orWhere('email','like', "%{$this->buscar}%");
 
         if($this->camp && $this->order){
-            $users = $users->orderBy($this->camp,$this->order);
+            if($this->camp == 'lastname'){
+               $users = $users->orderBy(Apellido::select($this->camp)->whereColumn('apellidos.user_id','users.id'),$this->order);
+            }else{
+                $users = $users->orderBy($this->camp,$this->order);
+            }
         }else{
             $this->camp = null;
             $this->order = null;
