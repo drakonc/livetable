@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class LiveModal extends Component
 {
-    public $hidden = 'hidden'; 
+    public $hidden = ''; 
 
     protected $listeners = [
         'showModal' => 'abrirModal'
