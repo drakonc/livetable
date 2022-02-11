@@ -52,12 +52,7 @@ class LiveUserTable extends Component
     }
 
     public function clear(){
-        $this->buscar = '';
-        $this->camp = null;
-        $this->order = null;
-        $this->icon = 'circle';
-        $this->perPage = 15;
-        $this->user_role = "";
+        $this->reset();
     }
 
     public function sortable($camp){
@@ -86,4 +81,7 @@ class LiveUserTable extends Component
         return $sort === 'asc' ? 'arrow-circle-up':'arrow-circle-down';
     }
 
+    public function showModal(User $user){
+        $this->emit('showModal',$user);
+    }
 }
