@@ -5,9 +5,13 @@
             <div class="mt-2">
                 <p class="text-sm text-gray-500">
                     <form method="POST" action="" autocomplete="off">
-                        <x-componant-input></x-componant-input>
-                        <x-componant-input></x-componant-input>
-                        <x-componant-input></x-componant-input>
+                        <div class="flex">
+                            <x-componant-input name="name" placeholder="Ingrese su Nombre" label="Nombre"></x-componant-input>
+                            <x-componant-input name="lastname" placeholder="Ingrese su Apellido" label="Apellido"></x-componant-input>
+                        </div>
+                        <div class="flex">
+                            <x-componant-input type="email" name="email" placeholder="Ingrese su Correo Electronico" label="Corro"></x-componant-input>
+                        </div>
                     </form>
                 </p>
             </div>
