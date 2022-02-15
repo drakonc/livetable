@@ -3,10 +3,15 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\{User, Apellido};
 
 class LiveModal extends Component
 {
-    public $hidden = ''; 
+    public $hidden = 'hidden';
+    public $name = '';
+    public $lastname = '';
+    public $email = '';
+    public $role = '';
 
 
     public $options = [
@@ -19,12 +24,16 @@ class LiveModal extends Component
         'showModal' => 'abrirModal'
     ];
 
-    public function abrirModal($user){
+    public function abrirModal(User $user){
+        $this->name = $user->name;
+        $this->lastname = $user->r_lastname->lastname;
+        $this->email = $user->email;
+        $this->role = $user->role;
         $this->hidden = '';
     }
     
     public function cerrarModal() {
-        $this->hidden = 'hidden';
+        $this->reset();
     }
     
     public function render()
