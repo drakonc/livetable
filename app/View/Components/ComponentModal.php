@@ -4,9 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ComponantModal extends Component
+class ComponentModal extends Component
 {
-
     public $hidden;
     /**
      * Create a new component instance.
@@ -25,6 +24,6 @@ class ComponantModal extends Component
      */
     public function render()
     {
-        return view('components.componant-modal');
+        return view('components.component-modal');
     }
 }

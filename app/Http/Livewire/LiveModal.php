@@ -8,6 +8,13 @@ class LiveModal extends Component
 {
     public $hidden = ''; 
 
+
+    public $options = [
+        'admin' => 'Administrator', 
+        'seller' => 'Vendedor', 
+        'client' => 'Cliente'
+    ];
+
     protected $listeners = [
         'showModal' => 'abrirModal'
     ];

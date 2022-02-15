@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ComponantInput extends Component
+class ComponentInput extends Component
 {
 
     public $label;
@@ -23,6 +23,6 @@ class ComponantInput extends Component
 
     public function render()
     {
-        return view('components.componant-input');
+        return view('components.component-input');
     }
 }
