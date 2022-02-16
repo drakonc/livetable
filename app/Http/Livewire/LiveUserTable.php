@@ -24,6 +24,10 @@ class LiveUserTable extends Component
 
     ];
 
+    protected $listeners = [
+        'userListUpdate' => 'render'
+    ];
+
     public function render()
     {
         $users = User::termino($this->buscar)->role($this->user_role);
