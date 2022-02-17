@@ -4,6 +4,11 @@
       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <div class="bg-white px-4 py-3 items-center justify-between border-t border-gray-200 sm:px-6">
           <div class="flex text-gray-500">
+            <button type="button" wire:click="showModal()" class="mr-4 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="transform transition-transform duration-500 ease-in-out text-blue-600">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+              </svg>
+            </button>
             <select class="rounded" wire:model="perPage">
               <option value="5">5</option>
               <option value="10">10</option>

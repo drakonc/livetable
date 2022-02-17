@@ -1,8 +1,8 @@
 <div>
-    <form wire:submit.prevent="actualizarUsuario()" autocomplete="off">
-        <x-component-modal :hidden="$hidden">
+    <form wire:submit.prevent="{{$method}}" autocomplete="off">
+        <x-component-modal :hidden="$hidden" :action="$action">
             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Edicion de Usuario</h3>
+                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">{{$title}}</h3>
                 <div class="mt-2">
                     <p class="text-sm text-gray-500">
                         <div class="flex">
