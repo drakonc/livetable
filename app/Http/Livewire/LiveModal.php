@@ -3,8 +3,9 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Http\Requests\RequestUpdateUser;
 use App\Models\{User, Apellido};
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\RequestUpdateUser;
 
 class LiveModal extends Component
 {
@@ -13,6 +14,8 @@ class LiveModal extends Component
     public $lastname = '';
     public $email = '';
     public $role = '';
+    public $password = '';
+    public $password_confirmation = '';
     public $user = null;
     public $method = '';
     public $action = '';
@@ -53,12 +56,21 @@ class LiveModal extends Component
     public function registrarUsuario(){
         $requestUser = new RequestUpdateUser();
         $values = $this->validate($requestUser->rules($this->user),$requestUser->messages());
+        $user = new User;
+        $apellido = new Apellido;
+        $apellido->lastname = $values['lastname'];
+        $user->fill($values);
+        $user->password = bcrypt($values['password']);
+        DB::transaction(function () use ($user,$apellido) {
+            $user->save();
+            $apellido->r_user()->associate($user)->save();
+        });
         $this->cerrarModal();
     }
     
     public function actualizarUsuario(){
         $requestUser = new RequestUpdateUser();
-        $values = $this->validate($requestUser->rules(),$requestUser->messages());
+        $values = $this->validate($requestUser->rules($this->user),$requestUser->messages());
         $this->user->update($values);
         $this->user->r_lastname()->update(['lastname'=>$values['lastname']]);
         $this->emit('userListUpdate');

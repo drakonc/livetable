@@ -13,6 +13,12 @@
                             <x-component-input type="email" name="email" placeholder="Ingrese su Correo Electronico" label="Corro"></x-component-input>
                             <x-component-input-select name="role" label="Seleccione un Rol" :options="$options"></x-component-input-select>
                         </div>
+                        @if ($action == 'Registrar')
+                            <div class="flex">
+                                <x-component-input type="password" name="password" placeholder="Ingrese su Contraseña" label="Clave"></x-component-input>
+                                <x-component-input type="password" name="password_confirmation" placeholder="Confirma tu Clave" label="Confirmacion de Clave"></x-component-input>
+                            </div>
+                        @endif
                     </p>
                 </div>
             </div>
