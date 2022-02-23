@@ -19,6 +19,9 @@
                                 <x-component-input type="password" name="password_confirmation" placeholder="Confirma tu Clave" label="Confirmacion de Clave"></x-component-input>
                             </div>
                         @endif
+                        <div class="flex">
+                            <x-component-input type="file" name="profile_photo_path" placeholder="Ingrese su Imagen" label="Imagen"></x-component-input>
+                        </div>
                     </p>
                 </div>
             </div>

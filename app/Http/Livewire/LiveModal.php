@@ -3,12 +3,18 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\{User, Apellido};
 use Illuminate\Support\Facades\DB;
+use Livewire\TemporaryUploadedFile;
 use App\Http\Requests\RequestUpdateUser;
+use Illuminate\Support\Facades\Storage;
 
 class LiveModal extends Component
 {
+
+    use WithFileUploads;
+
     public $hidden = 'hidden';
     public $name = '';
     public $lastname = '';
@@ -20,6 +26,7 @@ class LiveModal extends Component
     public $method = '';
     public $action = '';
     public $title = '';
+    public $profile_photo_path = null;
 
 
     public $options = [
@@ -29,7 +36,7 @@ class LiveModal extends Component
     ];
 
     protected $listeners = [
-        'showModal' => 'abrirModal',
+        'showModalUpdateUser' => 'abrirModal',
         'showModalNewUser' => 'abrirModalNuevo'
     ];
 
@@ -61,6 +68,9 @@ class LiveModal extends Component
         $apellido->lastname = $values['lastname'];
         $user->fill($values);
         $user->password = bcrypt($values['password']);
+        if($values['profile_photo_path']){
+            $user->profile_photo_path = $this->loadImage($values['profile_photo_path']);
+        }
         DB::transaction(function () use ($user,$apellido) {
             $user->save();
             $apellido->r_user()->associate($user)->save();
@@ -71,6 +81,17 @@ class LiveModal extends Component
     public function actualizarUsuario(){
         $requestUser = new RequestUpdateUser();
         $values = $this->validate($requestUser->rules($this->user),$requestUser->messages());
+        if($values['profile_photo_path']){
+            if($this->user->profile_photo_path){
+                $this->removeImage($this->user->profile_photo_path);
+            }
+            $profile = ['profile_photo_path' => $this->loadImage($values['profile_photo_path'])];
+            $values = array_merge($values,$profile);
+        }else{
+            $profile = ['profile_photo_path' => $this->user->profile_photo_path];
+            $values = array_merge($values,$profile);
+        }
+
         $this->user->update($values);
         $this->user->r_lastname()->update(['lastname'=>$values['lastname']]);
         $this->emit('userListUpdate');
@@ -86,6 +107,21 @@ class LiveModal extends Component
         $this->resetErrorBag();
         $this->resetValidation();
         $this->reset();
+    }
+
+    private function loadImage(TemporaryUploadedFile $imagen){
+        $location = Storage::disk('public')->put('img',$imagen);
+        return $location;
+    }
+
+    private function removeImage(string $profile_photo_path){
+        if(!$profile_photo_path) {
+            return;
+        }
+
+        if(Storage::disk('public')->exists($profile_photo_path)){
+            Storage::disk('public')->delete($profile_photo_path);
+        }
     }
 
     public function render(){

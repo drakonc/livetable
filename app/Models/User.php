@@ -28,7 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'profile_photo_path'
     ];
 
     /**
@@ -66,6 +67,10 @@ class User extends Authenticatable
             return 'Administrador';
 
         return $this->role === 'seller' ? 'Vendedor':'Cliente';        
+    }
+
+    public function getImageUserAttribute(): string{
+        return $this->profile_photo_path ?? 'img/default.png';
     }
 
     public function r_lastname(){

@@ -26,7 +26,8 @@ class RequestUpdateUser extends FormRequest
             'name' => 'required|min:3|max:30',
             'lastname' => 'required|min:3|max:30',
             'email' => ['required','email',Rule::unique('users','email')->ignore($user)],
-            'role' => 'required|in:client,seller,admin'
+            'role' => 'required|in:client,seller,admin',
+            'profile_photo_path' => 'nullable|image'
         ];
 
         if(!$user){

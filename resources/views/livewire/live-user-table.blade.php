@@ -36,6 +36,9 @@
                 </button>
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Imagen
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Nombre
                 <button wire:click="sortable('name')">
                   <span class="fas fa-{{ $camp == 'name' ? $icon:'circle' }}"></span>
@@ -54,8 +57,9 @@
                 </button>
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Role</th>
-              <th scope="col" class="relative px-6 py-3"><span class="sr-only">Edit</span></th>
+                Role
+              </th>
+              <th scope="col" class="relative px-6 py-3"><span class="sr-only">Acciones</span></th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -63,6 +67,11 @@
             <tr>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm font-medium text-gray-900">{{$user->id}}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900 w-10 h-10">
+                  <img class="rounded-full" src="{{asset('storage/'.$user->image_user)}}" alt="{{$user->name}}"/>
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="text-sm text-gray-900">{{$user->name}}</div>
@@ -78,6 +87,7 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a href="javascript:void(0);" class="text-indigo-600 hover:text-indigo-900" wire:click="showModal({{$user->id}})">Edit</a>
+                <a href="javascript:void(0);" class="text-red-600 hover:text-red-900" onClick="emitir({{$user->id}})" id="borrar">Delete</a>
               </td>
             </tr>
             @endforeach
@@ -89,4 +99,18 @@
       </div>
     </div>
   </div>
+  @push('scripts')
+    <script>
+      function emitir(id) {
+        let eliminar = confirm("¿Desea Eliminar el Usuario?");
+        if(eliminar){
+            Livewire.emit('deleteUser',id)
+        }
+      }
+
+      Livewire.on('deleteUserConfirm',(user) => {
+        alert(`El usuario ${user.name} se borro Correctamente`)
+      });
+    </script>
+  @endpush
 </div>

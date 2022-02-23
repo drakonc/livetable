@@ -25,7 +25,8 @@ class LiveUserTable extends Component
     ];
 
     protected $listeners = [
-        'userListUpdate' => 'render'
+        'userListUpdate' => 'render',
+        'deleteUser' 
     ];
 
     public function render()
@@ -87,8 +88,16 @@ class LiveUserTable extends Component
 
     public function showModal(User $user){
         if($user->name)
-            $this->emit('showModal',$user);
+            $this->emit('showModalUpdateUser',$user);
         else
             $this->emit('showModalNewUser');
     }
+
+    public function deleteUser(User $user){
+        $user->r_lastname()->delete();
+        $user->delete();
+        $this->emit('deleteUserConfirm',$user);
+    }
+
+    
 }
